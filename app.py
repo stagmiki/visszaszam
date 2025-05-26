@@ -27,17 +27,29 @@ st.markdown("""
         font-size: 1.5rem;
         color: white;
         text-align: center;
+        animation: fadeIn 2s ease-in;
+        box-shadow: 0 0 25px rgba(0,0,0,0.4);
+        backdrop-filter: blur(3px);
     }
 
     h1 {
         text-align: center;
         color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        animation: slideDown 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
     </style>
 """, unsafe_allow_html=True)
-
-# Cím
-st.title("Barcelonai utazás")
 
 # Cél dátum beállítása
 target_date = datetime(2025, 6, 19, 0, 0, 0)
