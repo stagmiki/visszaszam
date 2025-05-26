@@ -2,23 +2,27 @@ import streamlit as st
 from datetime import datetime
 from streamlit_autorefresh import st_autorefresh
 
-# ⚠️ EZ AZ ELSŐ ST. PARANCS KELL LEGYEN
+# ⚠️ Ez legyen az első Streamlit parancs
 st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 
 # 🔁 Automatikus frissítés 1 másodpercenként
 st_autorefresh(interval=1000, key="refresh")
 
-# 🎨 Háttér és stílus
+# 🎨 Háttérkép és stílus (működő ::before megoldással)
 st.markdown("""
     <style>
+    html, body, [data-testid="stAppViewContainer"] {
+        height: 100%;
+    }
+
     .stApp::before {
         content: "";
         position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url("https://i.imgur.com/hbWis1E.jpeg");
+        right: 0;
+        bottom: 0;
+        background-image: url('https://i.imgur.com/hbWis1E.jpeg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -26,6 +30,7 @@ st.markdown("""
         opacity: 0.3;
         z-index: -1;
     }
+
     .box {
         background-color: rgba(0, 0, 0, 0.6);
         border-radius: 1rem;
@@ -35,6 +40,7 @@ st.markdown("""
         color: white;
         text-align: center;
     }
+
     h1 {
         color: white;
         text-align: center;
