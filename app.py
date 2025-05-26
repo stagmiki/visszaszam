@@ -10,27 +10,33 @@ st.experimental_rerun = st.experimental_rerun if hasattr(st, "experimental_rerun
 placeholder = st.empty()
 
 # 🎨 Háttér és stílus
-st.markdown("""
+# 🎨 Háttér és stílus (új megoldás!)
+st.markdown(f"""
     <style>
-    .stApp {
+    .stApp::before {{
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         background-image: url("https://i.imgur.com/hbWis1E.jpeg");
         background-size: cover;
         background-position: center;
-        background-attachment: fixed;
-        color: white;
-    }
-
-    .stMarkdown h1 {
-        color: white;
-    }
-
-    .box {
+        opacity: 0.3;
+        z-index: -1;
+    }}
+    .box {{
         background-color: rgba(0, 0, 0, 0.6);
         border-radius: 1rem;
         padding: 1rem;
         margin-top: 1rem;
         font-size: 1.5rem;
-    }
+        color: white;
+    }}
+    h1 {{
+        color: white;
+    }}
     </style>
 """, unsafe_allow_html=True)
 
