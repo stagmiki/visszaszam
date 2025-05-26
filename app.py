@@ -1,18 +1,17 @@
 import streamlit as st
 from datetime import datetime
-import time
+from streamlit_autorefresh import st_autorefresh
+
+# Automatikus frissítés 1 másodpercenként
+st_autorefresh(interval=1000, key="refresh")
 
 # Oldal beállítása
-st.set_page_config(page_title="Barcelonai utazás122", layout="centered")
+st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 
-# 🔄 Automatikus újratöltés – fallback, ha nincs
-st.experimental_rerun = st.experimental_rerun if hasattr(st, "experimental_rerun") else lambda: None
-placeholder = st.empty()
-
-# 🎨 Háttér és stílus (új, működő módszer!)
-st.markdown(f"""
+# 🎨 Háttér és stílus (modern megoldás)
+st.markdown("""
     <style>
-    .stApp::before {{
+    .stApp::before {
         content: "";
         position: fixed;
         top: 0;
@@ -24,50 +23,39 @@ st.markdown(f"""
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        opacity: 0.35;
+        opacity: 0.3;
         z-index: -1;
-    }}
-    .box {{
+    }
+    .box {
         background-color: rgba(0, 0, 0, 0.6);
         border-radius: 1rem;
-        padding: 1rem;
-        margin-top: 1rem;
+        padding: 1.5rem;
+        margin-top: 2rem;
         font-size: 1.5rem;
         color: white;
-    }}
-    h1 {{
+        text-align: center;
+    }
+    h1 {
         color: white;
-    }}
+        text-align: center;
+    }
     </style>
 """, unsafe_allow_html=True)
 
 # Cím
 st.title("Barcelonai utazás")
 
-# 📅 Cél dátum
+# Cél dátum beállítása
 target_date = datetime(2025, 6, 19, 0, 0, 0)
+now = datetime.now()
+delta = target_date - now
 
-# 🔁 Visszaszámláló frissítéssel
-while True:
-    now = datetime.now()
-    delta = target_date - now
+# Visszaszámlálás megjelenítése
+if delta.total_seconds() > 0:
+    days = delta.days
+    hours = delta.seconds // 3600
+    minutes = (delta.seconds % 3600) // 60
+    seconds = delta.seconds % 60
 
-    with placeholder.container():
-        if delta.total_seconds() > 0:
-            days = delta.days
-            hours = delta.seconds // 3600
-            minutes = (delta.seconds % 3600) // 60
-            seconds = delta.seconds % 60
-
-            st.markdown(
-                f"<div class='box'>Hátralévő idő: {days} nap, {hours} óra, {minutes} perc, {seconds} másodperc</div>",
-                unsafe_allow_html=True
-            )
-        else:
-            st.markdown(
-                "<div class='box'>Ez az utazás dátuma már elmúlt.</div>",
-                unsafe_allow_html=True
-            )
-
-        time.sleep(1)
-        st.experimental_rerun()
+    st.markdown(
+        f"<div class='box'>Hátralévő idő: {days} nap, {hours} óra, {minutes} perc, {seconds} máso
