@@ -35,7 +35,7 @@ st.markdown("""
 # 🏷️ Középre helyezett cím
 st.markdown("<h1 class='custom-title'>Barcelonai utazás</h1>", unsafe_allow_html=True)
 
-# ⏳ JS-alapú visszaszámláló + pulzáló animáció
+# ⏳ JS-alapú visszaszámláló (nincs pulzálás, nagyobb doboz)
 components.html(f"""
 <!DOCTYPE html>
 <html>
@@ -52,39 +52,35 @@ components.html(f"""
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 30vh;
+        height: 35vh;
+        padding: 0 1rem;
       }}
 
       .counter-box {{
         background-color: rgba(0, 0, 0, 0.6);
         border-radius: 1rem;
-        padding: 2rem 3rem;
+        padding: 2.5rem 2rem;
         font-size: 1.8rem;
         color: white;
         text-align: center;
         box-shadow: 0 8px 30px rgba(0,0,0,0.5);
         backdrop-filter: blur(5px);
         font-family: 'Segoe UI', sans-serif;
+        width: 100%;
+        max-width: 500px;
       }}
 
       .counter-title {{
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
         color: #ffffff;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
       }}
 
       #countdown {{
-        font-size: 2rem;
+        font-size: 2.2rem;
         font-weight: bold;
         text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
-        animation: pulse 1.5s ease-in-out infinite;
-      }}
-
-      @keyframes pulse {{
-        0%   {{ transform: scale(1);   opacity: 1; }}
-        50%  {{ transform: scale(1.05); opacity: 0.9; }}
-        100% {{ transform: scale(1);   opacity: 1; }}
       }}
     </style>
   </head>
@@ -126,4 +122,4 @@ components.html(f"""
     </script>
   </body>
 </html>
-""", height=300)
+""", height=350)
