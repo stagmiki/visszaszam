@@ -4,35 +4,37 @@ import time
 
 st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 
+# 🌆 Stílus háttérképpel és átlátszó overlay
 st.markdown("""
     <style>
-    .stApp {
+    body {
         background-image: url("https://images.unsplash.com/photo-1605733160314-4d791ba3b3d5");
         background-size: cover;
-        background-position: center;
         background-attachment: fixed;
-        color: white;
+        background-position: center;
     }
-
-    .stMarkdown h1 {
-        color: white;
-    }
-
-    .box {
+    .main {
         background-color: rgba(0, 0, 0, 0.6);
+        padding: 2rem;
         border-radius: 1rem;
-        padding: 1rem;
-        margin-top: 1rem;
-        font-size: 1.5rem;
+        color: white;
+    }
+    h1 {
+        color: white;
+        text-align: center;
     }
     </style>
+    <div class="main">
 """, unsafe_allow_html=True)
 
+# 🏷️ Cím
 st.title("Barcelonai utazás")
 
+# 🎯 Célidőpont: 2025. június 19.
 target_date = datetime(2025, 6, 19, 0, 0, 0)
 placeholder = st.empty()
 
+# 🔁 Élő visszaszámlálás
 while True:
     now = datetime.now()
     delta = target_date - now
@@ -43,15 +45,12 @@ while True:
             hours = delta.seconds // 3600
             minutes = (delta.seconds % 3600) // 60
             seconds = delta.seconds % 60
-
-            st.markdown(
-                f"<div class='box'>Hátralévő idő: {days} nap, {hours} óra, {minutes} perc, {seconds} másodperc</div>",
-                unsafe_allow_html=True
-            )
+            st.markdown(f"<h2>Hátralévő idő: {days} nap, {hours} óra, {minutes} perc, {seconds} másodperc</h2>", unsafe_allow_html=True)
         else:
-            st.markdown(
-                "<div class='box'>Ez az utazás dátuma már elmúlt.</div>",
-                unsafe_allow_html=True
-            )
-        time.sleep(1)
-        st.experimental_rerun()
+            st.markdown("<h2>Ez az utazás dátuma már elmúlt.</h2>", unsafe_allow_html=True)
+
+    time.sleep(1)
+    st.experimental_rerun()
+
+# Záró div lezárás
+st.markdown("</div>", unsafe_allow_html=True)
