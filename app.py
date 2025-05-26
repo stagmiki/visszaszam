@@ -5,7 +5,7 @@ import time
 # Oldal beállítása
 st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 
-# 🔄 Automatikus újratöltés
+# 🔄 Automatikus újratöltés – fallback, ha nincs
 st.experimental_rerun = st.experimental_rerun if hasattr(st, "experimental_rerun") else lambda: None
 placeholder = st.empty()
 
@@ -13,7 +13,7 @@ placeholder = st.empty()
 st.markdown("""
     <style>
     .stApp {
-        background-image: url("https://images.unsplash.com/photo-aX5NLrKgRBc?auto=format&fit=crop&w=1920&q=80");
+        background-image: url("https://raw.githubusercontent.com/stagmiki/visszaszam/main/barca.jpg");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -36,10 +36,10 @@ st.markdown("""
 
 st.title("Barcelonai utazás")
 
-# 📅 Fix cél dátum
+# 📅 Cél dátum
 target_date = datetime(2025, 6, 19, 0, 0, 0)
 
-# 🔁 Folyamatos frissítés másodpercenként
+# 🔁 Folyamatos frissítés
 while True:
     now = datetime.now()
     delta = target_date - now
