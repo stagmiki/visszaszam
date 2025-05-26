@@ -5,10 +5,10 @@ import streamlit.components.v1 as components
 # Cél dátum
 target_date = datetime(2025, 6, 19, 0, 0, 0)
 
-# Oldal beállítása
+# Oldal beállítás
 st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 
-# Háttér és alapstílus
+# Háttér + stílus
 st.markdown("""
     <style>
     [data-testid="stAppViewContainer"] {
@@ -18,66 +18,71 @@ st.markdown("""
         background-repeat: no-repeat;
         background-attachment: fixed;
     }
-
-    .main-title {
-        text-align: center;
-        font-size: 3rem;
-        font-weight: bold;
-        color: white;
-        text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
-        margin-top: 2rem;
-    }
     </style>
 """, unsafe_allow_html=True)
 
 # Cím
-st.markdown("<div class='main-title'>Barcelonai utazás</div>", unsafe_allow_html=True)
+st.title("Barcelonai utazás")
 
-# JS-es visszaszámláló, új dizájnnal
+# 🔁 Komponens: JS-alapú visszaszámláló
 components.html(f"""
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <style>
-      body {{
-        margin: 0;
-        padding: 0;
-        background: transparent;
-      }}
-      .counter-container {{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 50vh;
-      }}
       .counter-box {{
         background-color: rgba(0, 0, 0, 0.6);
         border-radius: 1rem;
-        padding: 2rem 3rem;
-        font-size: 1.8rem;
+        padding: 1.5rem;
+        margin-top: 2rem;
+        font-size: 1.5rem;
         color: white;
         text-align: center;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-        backdrop-filter: blur(5px);
-        font-family: 'Segoe UI', sans-serif;
+        box-shadow: 0 0 25px rgba(0,0,0,0.4);
+        backdrop-filter: blur(3px);
+        font-family: sans-serif;
       }}
-      .counter-title {{
-        font-size: 1.5rem;
+      h2 {{
+        color: white;
         margin-bottom: 1rem;
-        color: #ffffff;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
       }}
       #countdown {{
         font-size: 2rem;
         font-weight: bold;
-        text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
       }}
     </style>
   </head>
   <body>
-    <div class="counter-container">
-      <div class="counter-box">
-        <div class="counter-title">Hátralévő idő:</div>
-        <div id="countdown">Számolás...</div>
-      </div>
+    <div class="counter-box">
+      <h2>Hátralévő idő:</h2>
+      <div id="countdown">Számolás...</div>
+    </div>
+    <script>
+      const target = new Date("{target_date.strftime('%Y-%m-%dT%H:%M:%S')}");
+      function updateCountdown() {{
+        const now = new Date();
+        const diff = target - now;
+
+        if (diff <= 0) {{
+          document.getElementById("countdown").innerHTML = "🎉 Ma van az utazás napja vagy már elmúlt!";
+          return;
+        }}
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        document.getElementById("countdown").innerHTML =
+          `${{String(days).padStart(2, '0')}} nap, ` +
+          `${{String(hours).padStart(2, '0')}} óra, ` +
+          `${{String(minutes).padStart(2, '0')}} perc, ` +
+          `${{String(seconds).padStart(2, '0')}} másodperc`;
+      }}
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    </script>
+  </body>
+</html>
+""", height=300)
