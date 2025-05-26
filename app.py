@@ -8,7 +8,7 @@ st.set_page_config(page_title="Barcelonai utazás", layout="wide")
 st.markdown(f"""
     <style>
     .stApp {{
-        background-image: url("https://raw.githubusercontent.com/stagmiki/visszaszamlalo/main/barcelona.jpg");
+        background-image: url("https://raw.githubusercontent.com/stagmiki/visszaszam/main/barcelona.jpeg");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
