@@ -9,8 +9,7 @@ st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 st.experimental_rerun = st.experimental_rerun if hasattr(st, "experimental_rerun") else lambda: None
 placeholder = st.empty()
 
-# 🎨 Háttér és stílus
-# 🎨 Háttér és stílus (új megoldás!)
+# 🎨 Háttér és stílus (új, működő módszer!)
 st.markdown(f"""
     <style>
     .stApp::before {{
@@ -23,7 +22,9 @@ st.markdown(f"""
         background-image: url("https://i.imgur.com/hbWis1E.jpeg");
         background-size: cover;
         background-position: center;
-        opacity: 0.3;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        opacity: 0.35;
         z-index: -1;
     }}
     .box {{
@@ -40,6 +41,7 @@ st.markdown(f"""
     </style>
 """, unsafe_allow_html=True)
 
+# Cím
 st.title("Barcelonai utazás")
 
 # 📅 Cél dátum
@@ -66,5 +68,6 @@ while True:
                 "<div class='box'>Ez az utazás dátuma már elmúlt.</div>",
                 unsafe_allow_html=True
             )
+
         time.sleep(1)
         st.experimental_rerun()
