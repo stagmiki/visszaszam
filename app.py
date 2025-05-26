@@ -2,18 +2,12 @@ import streamlit as st
 from datetime import datetime
 import time
 
-# Oldal frissítése másodpercenként
 st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 
-# 🔄 Automatikus újratöltés
-st.experimental_rerun = st.experimental_rerun if hasattr(st, "experimental_rerun") else lambda: None
-placeholder = st.empty()
-
-# 🎨 Háttér és stílus
 st.markdown("""
     <style>
     .stApp {
-       background-image: url("https://images.unsplash.com/photo-1605733160314-4d791ba3b3d5");
+        background-image: url("https://images.unsplash.com/photo-1605733160314-4d791ba3b3d5");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -36,10 +30,9 @@ st.markdown("""
 
 st.title("Barcelonai utazás")
 
-# 📅 Fix cél dátum
 target_date = datetime(2025, 6, 19, 0, 0, 0)
+placeholder = st.empty()
 
-# 🔁 Folyamatos frissítés másodpercenként
 while True:
     now = datetime.now()
     delta = target_date - now
