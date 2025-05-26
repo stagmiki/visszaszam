@@ -13,7 +13,7 @@ placeholder = st.empty()
 st.markdown("""
     <style>
     .stApp {
-        background-image: url("https://images.unsplash.com/photo-1505761671935-60b3a7427bad");
+       background-image: url("https://images.unsplash.com/photo-1605733160314-4d791ba3b3d5");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
