@@ -1,12 +1,14 @@
 import streamlit as st
 from datetime import datetime
+import streamlit.components.v1 as components
 
-st.set_page_config(page_title="Barcelonai utazás", layout="centered")
-
-# 🎯 Cél dátum
+# Cél dátum
 target_date = datetime(2025, 6, 19, 0, 0, 0)
 
-# 🎨 Háttér + stílus
+# Oldal beállítás
+st.set_page_config(page_title="Barcelonai utazás", layout="centered")
+
+# Háttér + stílus
 st.markdown("""
     <style>
     [data-testid="stAppViewContainer"] {
@@ -16,8 +18,20 @@ st.markdown("""
         background-repeat: no-repeat;
         background-attachment: fixed;
     }
+    </style>
+""", unsafe_allow_html=True)
 
-    .box {
+# Cím
+st.title("Barcelonai utazás")
+
+# 🔁 Komponens: JS-alapú visszaszámláló
+components.html(f"""
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      .counter-box {{
         background-color: rgba(0, 0, 0, 0.6);
         border-radius: 1rem;
         padding: 1.5rem;
@@ -27,53 +41,48 @@ st.markdown("""
         text-align: center;
         box-shadow: 0 0 25px rgba(0,0,0,0.4);
         backdrop-filter: blur(3px);
-    }
-
-    h1 {
-        text-align: center;
+        font-family: sans-serif;
+      }}
+      h2 {{
         color: white;
-    }
-
-    #counter {
-        font-weight: bold;
+        margin-bottom: 1rem;
+      }}
+      #countdown {{
         font-size: 2rem;
-        margin-top: 1rem;
-    }
+        font-weight: bold;
+      }}
     </style>
-""", unsafe_allow_html=True)
+  </head>
+  <body>
+    <div class="counter-box">
+      <h2>Hátralévő idő:</h2>
+      <div id="countdown">Számolás...</div>
+    </div>
+    <script>
+      const target = new Date("{target_date.strftime('%Y-%m-%dT%H:%M:%S')}");
+      function updateCountdown() {{
+        const now = new Date();
+        const diff = target - now;
 
-# Cím
-st.title("Barcelonai utazás")
+        if (diff <= 0) {{
+          document.getElementById("countdown").innerHTML = "🎉 Ma van az utazás napja vagy már elmúlt!";
+          return;
+        }}
 
-# HTML + JS a számlálóhoz
-st.markdown(f"""
-<div class="box">
-  <div>Hátralévő idő:</div>
-  <div id="counter">Számolás...</div>
-</div>
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
 
-<script>
-const target = new Date("{target_date.strftime('%Y-%m-%dT%H:%M:%S')}");
-const counter = document.getElementById("counter");
-
-function updateCountdown() {{
-  const now = new Date();
-  const diff = target - now;
-
-  if (diff <= 0) {{
-    counter.innerHTML = "🎉 Ma van az utazás napja vagy már elmúlt!";
-    return;
-  }}
-
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  counter.innerHTML = `${{days.toString().padStart(2,'0')}} nap, ${{hours.toString().padStart(2,'0')}} óra, ${{minutes.toString().padStart(2,'0')}} perc, ${{seconds.toString().padStart(2,'0')}} másodperc`;
-}}
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
-</script>
-""", unsafe_allow_html=True)
+        document.getElementById("countdown").innerHTML =
+          `${{String(days).padStart(2, '0')}} nap, ` +
+          `${{String(hours).padStart(2, '0')}} óra, ` +
+          `${{String(minutes).padStart(2, '0')}} perc, ` +
+          `${{String(seconds).padStart(2, '0')}} másodperc`;
+      }}
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    </script>
+  </body>
+</html>
+""", height=300)
