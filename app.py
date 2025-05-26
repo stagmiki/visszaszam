@@ -1,14 +1,22 @@
 import streamlit as st
 from datetime import datetime
 import time
+import base64
 
 st.set_page_config(page_title="Barcelonai utazás", layout="wide")
 
-# ✅ Háttérkép a GitHub repóból (cseréld ki a URL-t a sajátodra, ha más a neved!)
-st.markdown(f"""
+# ✅ Háttér beállítása helyben tárolt képből (base64)
+def get_base64_of_bin_file(picture_path):
+    with open(picture_path, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+def set_background(picture_path):
+    bin_str = get_base64_of_bin_file(picture_path)
+    page_bg_img = f"""
     <style>
     .stApp {{
-        background-image: url("https://raw.githubusercontent.com/stagmiki/visszaszam/main/barcelona.jpeg");
+        background-image: url("data:image/jpeg;base64,{bin_str}");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -23,9 +31,13 @@ st.markdown(f"""
         text-align: center;
     }}
     </style>
-""", unsafe_allow_html=True)
+    """
+    st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# 📍 Cím
+# 🖼️ Háttér beállítása
+set_background('barcelona.jpeg')
+
+# 🏷️ Cím
 st.markdown("<h1>Barcelonai utazás</h1>", unsafe_allow_html=True)
 
 # 🎯 Cél dátum
