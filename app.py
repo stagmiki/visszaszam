@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import datetime
 import time
 
-# Oldal frissítése másodpercenként
+# Oldal beállítása
 st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 
 # 🔄 Automatikus újratöltés
@@ -13,7 +13,7 @@ placeholder = st.empty()
 st.markdown("""
     <style>
     .stApp {
-        background-image: url("https://images.unsplash.com/photo-1505761671935-60b3a7427bad");
+        background-image: url("https://images.unsplash.com/photo-aX5NLrKgRBc?auto=format&fit=crop&w=1920&q=80");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
