@@ -2,13 +2,13 @@ import streamlit as st
 from datetime import datetime
 from streamlit_autorefresh import st_autorefresh
 
-# Automatikus frissítés 1 másodpercenként
-st_autorefresh(interval=1000, key="refresh")
-
-# Oldal beállítása
+# ⚠️ EZ AZ ELSŐ ST. PARANCS KELL LEGYEN
 st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 
-# 🎨 Háttér és stílus (működő módszer!)
+# 🔁 Automatikus frissítés 1 másodpercenként
+st_autorefresh(interval=1000, key="refresh")
+
+# 🎨 Háttér és stílus
 st.markdown("""
     <style>
     .stApp::before {
@@ -45,12 +45,12 @@ st.markdown("""
 # Cím
 st.title("Barcelonai utazás")
 
-# Cél dátum beállítása
+# 🎯 Cél dátum
 target_date = datetime(2025, 6, 19, 0, 0, 0)
 now = datetime.now()
 delta = target_date - now
 
-# Visszaszámlálás megjelenítése
+# ⏳ Visszaszámlálás megjelenítése
 if delta.total_seconds() > 0:
     days = delta.days
     hours = delta.seconds // 3600
@@ -58,11 +58,4 @@ if delta.total_seconds() > 0:
     seconds = delta.seconds % 60
 
     st.markdown(
-        f"<div class='box'>Hátralévő idő: {days} nap, {hours} óra, {minutes} perc, {seconds} másodperc</div>",
-        unsafe_allow_html=True
-    )
-else:
-    st.markdown(
-        "<div class='box'>Ez az utazás dátuma már elmúlt.</div>",
-        unsafe_allow_html=True
-    )
+        f"<div class='box'>Hátralévő idő: {days} nap, {hours} óra, {minutes} perc, {sec
