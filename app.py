@@ -22,7 +22,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Cím
-st.title("Barcelonai utazás")
+st.markdown("""
+    <h1 class="custom-title">Barcelonai utazás</h1>
+""", unsafe_allow_html=True)
 
 # 🔁 Komponens: JS-alapú visszaszámláló
 components.html(f"""
@@ -51,6 +53,14 @@ components.html(f"""
         font-size: 2rem;
         font-weight: bold;
       }}
+      .custom-title {
+      text-align: center;
+      font-size: 3.5rem;
+      margin-top: 30vh;
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+      font-weight: bold;
+    }
     </style>
   </head>
   <body>
