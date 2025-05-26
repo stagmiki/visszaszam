@@ -11,6 +11,26 @@ st_autorefresh(interval=1000, key="refresh")
 # Stílus: egyszerű sötét doboz szöveggel
 st.markdown("""
     <style>
+    html, body, [data-testid="stAppViewContainer"] {
+        height: 100%;
+    }
+
+    .stApp::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url("https://i.imgur.com/hbWis1E.jpeg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        opacity: 0.3;  /* Átlátszóság: állítható */
+        z-index: -1;
+    }
+
     .box {
         background-color: rgba(0, 0, 0, 0.6);
         border-radius: 1rem;
@@ -24,10 +44,6 @@ st.markdown("""
     h1 {
         text-align: center;
         color: white;
-    }
-
-    body {
-        background-color: #1c1c1c;
     }
     </style>
 """, unsafe_allow_html=True)
