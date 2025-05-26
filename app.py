@@ -1,6 +1,7 @@
 import streamlit as st
 from datetime import datetime
 from streamlit_autorefresh import st_autorefresh
+import base64
 
 # ⚠️ Ez legyen az első Streamlit parancs
 st.set_page_config(page_title="Barcelonai utazás", layout="centered")
@@ -8,30 +9,30 @@ st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 # 🔁 Automatikus frissítés 1 másodpercenként
 st_autorefresh(interval=1000, key="refresh")
 
-# 🎨 Háttérkép és stílus (működő ::before megoldással)
-st.markdown("""
-    <style>
-    html, body, [data-testid="stAppViewContainer"] {
-        height: 100%;
-    }
+# 🔤 Base64 háttérkép (példaképként egy kis kép van itt)
+base64_image = """
+iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAHElEQVQYV2NkYGD4z0ABYBxVSFUBATGAAGCcBQC9cB2IU6kBnwAAAABJRU5ErkJggg==
+"""  # Ez egy kis szürke PNG
 
-    .stApp::before {
+# 🎨 Háttér beállítása Base64 képből
+st.markdown(f"""
+    <style>
+    .stApp::before {{
         content: "";
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background-image: url('https://i.imgur.com/hbWis1E.jpeg');
+        background-image: url("data:image/png;base64,{base64_image.strip()}");
         background-size: cover;
         background-position: center;
-        background-repeat: no-repeat;
         background-attachment: fixed;
+        background-repeat: no-repeat;
         opacity: 0.3;
         z-index: -1;
-    }
-
-    .box {
+    }}
+    .box {{
         background-color: rgba(0, 0, 0, 0.6);
         border-radius: 1rem;
         padding: 1.5rem;
@@ -39,12 +40,11 @@ st.markdown("""
         font-size: 1.5rem;
         color: white;
         text-align: center;
-    }
-
-    h1 {
+    }}
+    h1 {{
         color: white;
         text-align: center;
-    }
+    }}
     </style>
 """, unsafe_allow_html=True)
 
