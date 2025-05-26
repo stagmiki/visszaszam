@@ -3,7 +3,7 @@ from datetime import datetime
 from streamlit_autorefresh import st_autorefresh
 
 # Oldal beállítása
-st.set_page_config(page_title="Barcelonai utazás", layout="centered")
+st.set_page_config(page_title="BARCELONA", layout="centered")
 
 # Automatikus frissítés 1 másodpercenként
 st_autorefresh(interval=1000, key="refresh")
