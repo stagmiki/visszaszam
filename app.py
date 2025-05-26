@@ -4,7 +4,7 @@ import time
 
 st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 
-# ✅ VALÓDI háttér beállítása a .stApp osztályon keresztül
+# 🎨 Háttérkép beállítása .stApp osztályon keresztül
 st.markdown("""
     <style>
     .stApp {
@@ -12,15 +12,16 @@ st.markdown("""
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-        color: white;
     }
-    .block-container {
-        background-color: rgba(0, 0, 0, 0.6);
+
+    .css-18e3th9 {
+        background-color: rgba(0, 0, 0, 0.6) !important;
         padding: 2rem;
         border-radius: 1rem;
     }
-    h1, h2, h3, p {
-        color: white;
+
+    h1, h2, p {
+        color: white !important;
         text-align: center;
     }
     </style>
@@ -33,7 +34,7 @@ st.title("Barcelonai utazás")
 target_date = datetime(2025, 6, 19, 0, 0, 0)
 placeholder = st.empty()
 
-# 🔁 Élő visszaszámlálás másodpercenként
+# 🔁 Élő visszaszámlálás
 while True:
     now = datetime.now()
     delta = target_date - now
@@ -41,3 +42,16 @@ while True:
     with placeholder.container():
         if delta.total_seconds() > 0:
             days = delta.days
+            hours = delta.seconds // 3600
+            minutes = (delta.seconds % 3600) // 60
+            seconds = delta.seconds % 60
+
+            st.markdown(
+                f"<h2>Hátralévő idő: {days} nap, {hours} óra, {minutes} perc, {seconds} másodperc</h2>",
+                unsafe_allow_html=True
+            )
+        else:
+            st.markdown("<h2>Ez az utazás dátuma már elmúlt.</h2>", unsafe_allow_html=True)
+
+    time.sleep(1)
+    st.experimental_rerun()
