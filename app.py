@@ -1,50 +1,45 @@
 import streamlit as st
 from datetime import datetime
 import time
-import base64
 
-st.set_page_config(page_title="Barcelonai utazás", layout="wide")
+# Oldal frissítése másodpercenként
+st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 
-# ✅ Háttér beállítása helyben tárolt képből (base64)
-def get_base64_of_bin_file(picture_path):
-    with open(picture_path, 'rb') as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
+# 🔄 Automatikus újratöltés
+st.experimental_rerun = st.experimental_rerun if hasattr(st, "experimental_rerun") else lambda: None
+placeholder = st.empty()
 
-def set_background(picture_path):
-    bin_str = get_base64_of_bin_file(picture_path)
-    page_bg_img = f"""
+# 🎨 Háttér és stílus
+st.markdown("""
     <style>
-    .stApp {{
-        background-image: url("data:image/jpeg;base64,{bin_str}");
+    .stApp {
+        background-image: url("https://images.unsplash.com/photo-1505761671935-60b3a7427bad");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-    }}
-    .block-container {{
-        background-color: rgba(0, 0, 0, 0.6);
-        padding: 2rem;
-        border-radius: 1rem;
-    }}
-    h1, h2 {{
         color: white;
-        text-align: center;
-    }}
+    }
+
+    .stMarkdown h1 {
+        color: white;
+    }
+
+    .box {
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 1rem;
+        padding: 1rem;
+        margin-top: 1rem;
+        font-size: 1.5rem;
+    }
     </style>
-    """
-    st.markdown(page_bg_img, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-# 🖼️ Háttér beállítása
-set_background('barcelona.jpeg')
+st.title("Barcelonai utazás")
 
-# 🏷️ Cím
-st.markdown("<h1>Barcelonai utazás</h1>", unsafe_allow_html=True)
-
-# 🎯 Cél dátum
+# 📅 Fix cél dátum
 target_date = datetime(2025, 6, 19, 0, 0, 0)
-placeholder = st.empty()
 
-# 🔁 Élő visszaszámlálás
+# 🔁 Folyamatos frissítés másodpercenként
 while True:
     now = datetime.now()
     delta = target_date - now
@@ -57,11 +52,13 @@ while True:
             seconds = delta.seconds % 60
 
             st.markdown(
-                f"<div class='block-container'><h2>Hátralévő idő: {days} nap, {hours} óra, {minutes} perc, {seconds} másodperc</h2></div>",
+                f"<div class='box'>Hátralévő idő: {days} nap, {hours} óra, {minutes} perc, {seconds} másodperc</div>",
                 unsafe_allow_html=True
             )
         else:
-            st.markdown("<div class='block-container'><h2>Ez az utazás dátuma már elmúlt.</h2></div>", unsafe_allow_html=True)
-
-    time.sleep(1)
-    st.experimental_rerun()
+            st.markdown(
+                "<div class='box'>Ez az utazás dátuma már elmúlt.</div>",
+                unsafe_allow_html=True
+            )
+        time.sleep(1)
+        st.experimental_rerun()
