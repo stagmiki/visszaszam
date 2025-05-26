@@ -8,7 +8,7 @@ st_autorefresh(interval=1000, key="refresh")
 # Oldal beállítása
 st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 
-# 🎨 Háttér és stílus (modern megoldás)
+# 🎨 Háttér és stílus (működő módszer!)
 st.markdown("""
     <style>
     .stApp::before {
@@ -58,4 +58,11 @@ if delta.total_seconds() > 0:
     seconds = delta.seconds % 60
 
     st.markdown(
-        f"<div class='box'>Hátralévő idő: {days} nap, {hours} óra, {minutes} perc, {seconds} máso
+        f"<div class='box'>Hátralévő idő: {days} nap, {hours} óra, {minutes} perc, {seconds} másodperc</div>",
+        unsafe_allow_html=True
+    )
+else:
+    st.markdown(
+        "<div class='box'>Ez az utazás dátuma már elmúlt.</div>",
+        unsafe_allow_html=True
+    )
