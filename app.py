@@ -3,7 +3,7 @@ from datetime import datetime
 import time
 
 # Oldal beállítása
-st.set_page_config(page_title="Barcelonai utazás22", layout="centered")
+st.set_page_config(page_title="Barcelonai utazás122", layout="centered")
 
 # 🔄 Automatikus újratöltés – fallback, ha nincs
 st.experimental_rerun = st.experimental_rerun if hasattr(st, "experimental_rerun") else lambda: None
