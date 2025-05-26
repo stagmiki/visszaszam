@@ -4,7 +4,7 @@ from streamlit_autorefresh import st_autorefresh
 import base64
 
 # ⚠️ Ez legyen az első Streamlit parancs
-st.set_page_config(page_title="Barcelonai utazás", layout="centered")
+st.set_page_config(page_title="Barcelonai22 utazás", layout="centered")
 
 # 🔁 Automatikus frissítés 1 másodpercenként
 st_autorefresh(interval=1000, key="refresh")
