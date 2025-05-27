@@ -169,3 +169,41 @@ try:
         st.warning("Nem sikerült lekérdezni az időjárást.")
 except Exception as e:
     st.error(f"Hiba történt az időjárás lekérésekor: {e}")
+import random
+
+# 🎭 Fun factek / idézetek listája
+barcelona_facts = [
+    "„Barcelona több, mint város – ez egy életérzés.”",
+    "A Sagrada Família templomot 1882-ben kezdték építeni – még mindig épül!",
+    "Antoni Gaudí haláláig csak egy tornyot fejezett be a Sagrada Famílián.",
+    "A barcelonai strandokat csak 1992-ben, az olimpia előtt építették ki!",
+    "Barcelona az egyetlen város, aminek kilenc UNESCO világörökségi helyszíne van!",
+    "A tapas nem étel, hanem étkezési stílus – kis adagok megosztásra.",
+    "Barcelona lakói hivatalosan katalánnak vallják magukat – nem spanyolnak!",
+    "A Rambla nem egy utca, hanem öt egybefolyó utca.",
+    "„A tenger és a hegy között születtem – így lettem Barcelonai.” – ismeretlen",
+    "Barcelonában található Európa legöregebb fedett piacainak egyike: La Boqueria."
+]
+
+# 🎲 Véletlenszerű kiválasztás
+random_fact = random.choice(barcelona_facts)
+
+# 💬 Megjelenítés stílusosan
+st.markdown(f"""
+    <div style='
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        color: white;
+        font-style: italic;
+        text-align: center;
+        max-width: 600px;
+        margin: 2rem auto;
+        box-shadow: 0 0 15px rgba(0,0,0,0.4);
+        font-family: "Segoe UI", sans-serif;
+        backdrop-filter: blur(4px);
+    '>
+        🌟 <em>{random_fact}</em>
+    </div>
+""", unsafe_allow_html=True)
+
