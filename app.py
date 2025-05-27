@@ -123,3 +123,35 @@ components.html(f"""
   </body>
 </html>
 """, height=400)
+import requests
+
+# 🌍 API-kulcs és város ID
+API_KEY = "7f6722e92808e9cb374d127f5d154122"
+CITY_ID = "3128760"  # Barcelona
+
+# 🌤️ Lekérdezés összeállítása
+URL = f"https://api.openweathermap.org/data/2.5/weather?id={CITY_ID}&appid={API_KEY}&units=metric&lang=hu"
+
+# 🌦️ Adatok lekérése és megjelenítése
+try:
+    response = requests.get(URL)
+    data = response.json()
+
+    if data.get("cod") == 200:
+        weather = data["weather"][0]["description"].capitalize()
+        icon = data["weather"][0]["icon"]
+        temp = data["main"]["temp"]
+        feels_like = data["main"]["feels_like"]
+        humidity = data["main"]["humidity"]
+
+        st.markdown("---")
+        st.markdown("## 🌤️ Aktuális időjárás Barcelonában")
+        st.image(f"http://openweathermap.org/img/wn/{icon}@2x.png", width=80)
+        st.markdown(f"**Állapot:** {weather}")
+        st.markdown(f"**Hőmérséklet:** {temp}°C _(érzetre: {feels_like}°C)_")
+        st.markdown(f"**Páratartalom:** {humidity}%")
+    else:
+        st.warning("Nem sikerült lekérdezni az időjárást.")
+except Exception as e:
+    st.error(f"Hiba történt az időjárás lekérésekor: {e}")
+
