@@ -54,6 +54,7 @@ components.html(f"""
         justify-content: center;
         align-items: center;
         padding: 1.2rem 1rem 0 1rem;
+        margin-bottom: 1.2rem;
       }}
       .counter-box {{
         background-color: rgba(0, 0, 0, 0.6);
