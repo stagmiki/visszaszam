@@ -43,7 +43,7 @@ components.html(f"""
     <meta charset="utf-8">
     <style>
       body {{
-        margin: 1 rem auto;
+        margin: 1;
         padding: 0;
         background: transparent;
       }}
