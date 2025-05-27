@@ -1,6 +1,8 @@
 import streamlit as st
 from datetime import datetime
 import streamlit.components.v1 as components
+import requests
+import random
 
 # 🎯 Cél dátum
 target_date = datetime(2025, 6, 19, 0, 0, 0)
@@ -32,10 +34,10 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 🏷️ Középre helyezett cím
+# 🏷️ Cím
 st.markdown("<h1 class='custom-title'>Barcelonai utazás</h1>", unsafe_allow_html=True)
 
-# ⏳ JS-alapú visszaszámláló (mobilbarát felirat + rugalmas méretezés)
+# ⏳ JS-alapú visszaszámláló
 components.html(f"""
 <!DOCTYPE html>
 <html>
@@ -43,7 +45,7 @@ components.html(f"""
     <meta charset="utf-8">
     <style>
       body {{
-        margin: 1;
+        margin: 0;
         padding: 0;
         background: transparent;
       }}
@@ -123,16 +125,13 @@ components.html(f"""
   </body>
 </html>
 """, height=400)
-import requests
 
-# 🌍 API-kulcs és város ID
+# 🌍 Időjárás API
 API_KEY = "7f6722e92808e9cb374d127f5d154122"
-CITY_ID = "3128760"  # Barcelona
-
-# 🌤️ Lekérdezés összeállítása
+CITY_ID = "3128760"
 URL = f"https://api.openweathermap.org/data/2.5/weather?id={CITY_ID}&appid={API_KEY}&units=metric&lang=hu"
 
-# 🌦️ Adatok lekérése és megjelenítése
+# 🌦️ Időjárás megjelenítése
 try:
     response = requests.get(URL)
     data = response.json()
@@ -169,9 +168,8 @@ try:
         st.warning("Nem sikerült lekérdezni az időjárást.")
 except Exception as e:
     st.error(f"Hiba történt az időjárás lekérésekor: {e}")
-import random
 
-# 🎭 Fun factek / idézetek listája
+# 💬 Barcelonai idézet doboz
 barcelona_facts = [
     "„Barcelona több, mint város – ez egy életérzés.”",
     "A Sagrada Família templomot 1882-ben kezdték építeni – még mindig épül!",
@@ -185,13 +183,11 @@ barcelona_facts = [
     "Barcelonában található Európa legöregebb fedett piacainak egyike: La Boqueria."
 ]
 
-# 🎲 Véletlenszerű kiválasztás
 random_fact = random.choice(barcelona_facts)
 
-# 💬 Megjelenítés stílusosan
 st.markdown(f"""
     <div style='
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(255, 255, 255, 0.15);
         padding: 1.5rem;
         border-radius: 1rem;
         color: white;
@@ -206,4 +202,3 @@ st.markdown(f"""
         🌟 <em>{random_fact}</em>
     </div>
 """, unsafe_allow_html=True)
-
