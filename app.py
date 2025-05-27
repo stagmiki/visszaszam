@@ -23,37 +23,30 @@ st.markdown("""
     .custom-title {
         text-align: center;
         font-size: 3.5rem;
-        margin-top: 10dvh;
-        margin-bottom: 3rem;
+        margin-top: 25vh;
+        margin-bottom: 2rem;
         color: white !important;
         text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
         font-weight: bold;
         font-family: 'Segoe UI', sans-serif;
     }
 
-    .glass-box {
+    .box {
         background-color: rgba(0, 0, 0, 0.6);
         border-radius: 1rem;
-        padding: 2rem;
+        padding: 1.5rem;
         margin: 2rem auto;
-        max-width: 600px;
+        font-size: 1.2rem;
         color: white;
         text-align: center;
-        box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        max-width: 500px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
         backdrop-filter: blur(5px);
         font-family: 'Segoe UI', sans-serif;
     }
 
-    .glass-box h2 {
-        font-size: 1.8rem;
-        margin-bottom: 1.2rem;
-        color: white;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-    }
-
-    .glass-box p {
-        font-size: 1.2rem;
-        margin: 0.5rem 0;
+    .box h2 {
+        margin-bottom: 1rem;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -61,44 +54,28 @@ st.markdown("""
 # 🏷️ Cím
 st.markdown("<h1 class='custom-title'>Barcelonai utazás</h1>", unsafe_allow_html=True)
 
-# ⏳ Visszaszámláló – keretben
-components.html(f"""
-<div class="glass-box">
-  <h2>Hátralévő idő:</h2>
-  <div id="countdown" style="font-size: 1.6rem; font-weight: bold; text-shadow: 1px 1px 3px black;">Számolás...</div>
-</div>
+# ⏳ Visszaszámláló – hagyományos jól működő
+placeholder = st.empty()
 
-<script>
-  const target = new Date("{target_date.strftime('%Y-%m-%dT%H:%M:%S')}");
-  const countdown = document.getElementById("countdown");
+# Visszaszámlálás (JS helyett frissülő blokk)
+now = datetime.now()
+delta = target_date - now
 
-  function updateCountdown() {{
-    const now = new Date();
-    const diff = target - now;
+if delta.total_seconds() > 0:
+    days = delta.days
+    hours = delta.seconds // 3600
+    minutes = (delta.seconds % 3600) // 60
+    seconds = delta.seconds % 60
 
-    if (diff <= 0) {{
-      countdown.innerHTML = "🎉 Ma van az utazás napja vagy már elmúlt!";
-      return;
-    }}
+    with placeholder.container():
+        st.markdown(
+            f"<div class='box'><h2>Hátralévő idő:</h2>{days} nap, {hours} óra, {minutes} perc, {seconds} másodperc</div>",
+            unsafe_allow_html=True
+        )
+else:
+    st.markdown("<div class='box'>🎉 Ez az utazás dátuma már elmúlt!</div>", unsafe_allow_html=True)
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    countdown.innerHTML =
-      `${{String(days).padStart(2, '0')}} nap, ` +
-      `${{String(hours).padStart(2, '0')}} óra, ` +
-      `${{String(minutes).padStart(2, '0')}} perc, ` +
-      `${{String(seconds).padStart(2, '0')}} másodperc`;
-  }}
-
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-</script>
-""", height=160)
-
-# 🌍 Időjárás – lekérés
+# 🌍 Időjárás – külön dobozban
 API_KEY = "7f6722e92808e9cb374d127f5d154122"
 CITY_ID = "3128760"
 URL = f"https://api.openweathermap.org/data/2.5/weather?id={CITY_ID}&appid={API_KEY}&units=metric&lang=hu"
@@ -115,7 +92,7 @@ try:
         humidity = data["main"]["humidity"]
 
         st.markdown(f"""
-        <div class="glass-box">
+        <div class='box'>
             <h2>🌤️ Aktuális időjárás Barcelonában</h2>
             <img src="http://openweathermap.org/img/wn/{icon}@2x.png" width="80">
             <p><strong>Állapot:</strong> {weather}</p>
