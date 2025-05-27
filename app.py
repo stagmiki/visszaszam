@@ -23,9 +23,9 @@ st.markdown("""
 
     .custom-title {
         text-align: center;
-        font-size: 3.5rem;
-        margin-top: 25dvh;
-        margin-bottom: 2rem;
+        font-size: 3.2rem;
+        margin-top: 20dvh;
+        margin-bottom: 1rem;
         color: white !important;
         text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
         font-weight: bold;
@@ -49,38 +49,34 @@ components.html(f"""
         padding: 0;
         background: transparent;
       }}
-
       .counter-container {{
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 2rem 1rem;
+        padding: 1.2rem 1rem 0 1rem;
       }}
-
       .counter-box {{
         background-color: rgba(0, 0, 0, 0.6);
         border-radius: 1rem;
-        padding: 2.5rem 2rem;
-        font-size: 1.8rem;
+        padding: 2rem 1.5rem;
+        font-size: 1.6rem;
         color: white;
         text-align: center;
         box-shadow: 0 8px 30px rgba(0,0,0,0.5);
         backdrop-filter: blur(5px);
         font-family: 'Segoe UI', sans-serif;
         width: 100%;
-        max-width: 500px;
+        max-width: 600px;
       }}
-
       .counter-title {{
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
         color: #ffffff;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
         font-weight: 600;
       }}
-
       #countdown {{
-        font-size: 2.2rem;
+        font-size: 2rem;
         font-weight: bold;
         text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
       }}
@@ -146,12 +142,12 @@ try:
         st.markdown(f"""
             <div style='
                 background-color: rgba(0, 0, 0, 0.6);
-                padding: 2rem;
+                padding: 1.5rem;
                 border-radius: 1rem;
                 color: white;
                 text-align: center;
-                max-width: 500px;
-                margin: 2rem auto;
+                max-width: 600px;
+                margin: 1.2rem auto;
                 box-shadow: 0 4px 20px rgba(0,0,0,0.5);
                 backdrop-filter: blur(4px);
                 font-family: "Segoe UI", sans-serif;
@@ -169,7 +165,7 @@ try:
 except Exception as e:
     st.error(f"Hiba történt az időjárás lekérésekor: {e}")
 
-# 💬 Barcelonai idézet doboz
+# 💬 Barcelonai idézet doboz – sötétebben, kisebb margóval
 barcelona_facts = [
     "„Barcelona több, mint város – ez egy életérzés.”",
     "A Sagrada Família templomot 1882-ben kezdték építeni – még mindig épül!",
@@ -187,15 +183,15 @@ random_fact = random.choice(barcelona_facts)
 
 st.markdown(f"""
     <div style='
-        background-color: rgba(255, 255, 255, 0.15);
-        padding: 1.5rem;
+        background-color: rgba(0, 0, 0, 0.65);
+        padding: 1.2rem;
         border-radius: 1rem;
         color: white;
         font-style: italic;
         text-align: center;
         max-width: 600px;
-        margin: 2rem auto;
-        box-shadow: 0 0 15px rgba(0,0,0,0.4);
+        margin: 1.2rem auto;
+        box-shadow: 0 0 12px rgba(0,0,0,0.4);
         font-family: "Segoe UI", sans-serif;
         backdrop-filter: blur(4px);
     '>
