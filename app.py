@@ -55,7 +55,7 @@ components.html(f"""
         justify-content: center;
         align-items: center;
         padding: 0;
-        margin-bottom: 1.2rem;
+        margin-bottom: 0rem;
       }}
 
       .counter-box {{
@@ -152,7 +152,7 @@ try:
                 color: white;
                 text-align: center;
                 max-width: 600px;
-                margin: 1.2rem auto;
+                margin: 0.8rem auto;
                 box-shadow: 0 4px 20px rgba(0,0,0,0.5);
                 backdrop-filter: blur(4px);
                 font-family: "Segoe UI", sans-serif;
