@@ -23,116 +23,86 @@ st.markdown("""
     .custom-title {
         text-align: center;
         font-size: 3.5rem;
-        margin-top: 25dvh;
-        margin-bottom: 2rem;
+        margin-top: 10dvh;
+        margin-bottom: 3rem;
         color: white !important;
         text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
         font-weight: bold;
         font-family: 'Segoe UI', sans-serif;
     }
+
+    .glass-box {
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 600px;
+        color: white;
+        text-align: center;
+        box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        backdrop-filter: blur(5px);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .glass-box h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.2rem;
+        color: white;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    }
+
+    .glass-box p {
+        font-size: 1.2rem;
+        margin: 0.5rem 0;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# 🏷️ Középre helyezett cím
+# 🏷️ Cím
 st.markdown("<h1 class='custom-title'>Barcelonai utazás</h1>", unsafe_allow_html=True)
 
-# ⏳ JS-alapú visszaszámláló
+# ⏳ Visszaszámláló – keretben
 components.html(f"""
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <style>
-      body {{
-        margin: 0;
-        padding: 0;
-        background: transparent;
-      }}
+<div class="glass-box">
+  <h2>Hátralévő idő:</h2>
+  <div id="countdown" style="font-size: 1.6rem; font-weight: bold; text-shadow: 1px 1px 3px black;">Számolás...</div>
+</div>
 
-      .counter-container {{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem 1rem;
-      }}
+<script>
+  const target = new Date("{target_date.strftime('%Y-%m-%dT%H:%M:%S')}");
+  const countdown = document.getElementById("countdown");
 
-      .counter-box {{
-        background-color: rgba(0, 0, 0, 0.6);
-        border-radius: 1rem;
-        padding: 2.5rem 2rem;
-        font-size: 1.8rem;
-        color: white;
-        text-align: center;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-        backdrop-filter: blur(5px);
-        font-family: 'Segoe UI', sans-serif;
-        width: 100%;
-        max-width: 500px;
-      }}
+  function updateCountdown() {{
+    const now = new Date();
+    const diff = target - now;
 
-      .counter-title {{
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
-        color: #ffffff;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
-        font-weight: 600;
-      }}
+    if (diff <= 0) {{
+      countdown.innerHTML = "🎉 Ma van az utazás napja vagy már elmúlt!";
+      return;
+    }}
 
-      #countdown {{
-        font-size: 2.2rem;
-        font-weight: bold;
-        text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
-      }}
-    </style>
-  </head>
-  <body>
-    <div class="counter-container">
-      <div class="counter-box">
-        <div class="counter-title">Hátralévő idő:</div>
-        <div id="countdown">Számolás...</div>
-      </div>
-    </div>
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
 
-    <script>
-      const target = new Date("{target_date.strftime('%Y-%m-%dT%H:%M:%S')}");
-      const countdown = document.getElementById("countdown");
+    countdown.innerHTML =
+      `${{String(days).padStart(2, '0')}} nap, ` +
+      `${{String(hours).padStart(2, '0')}} óra, ` +
+      `${{String(minutes).padStart(2, '0')}} perc, ` +
+      `${{String(seconds).padStart(2, '0')}} másodperc`;
+  }}
 
-      function updateCountdown() {{
-        const now = new Date();
-        const diff = target - now;
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+""", height=160)
 
-        if (diff <= 0) {{
-          countdown.innerHTML = "🎉 Ma van az utazás napja vagy már elmúlt!";
-          return;
-        }}
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-
-        countdown.innerHTML =
-          `${{String(days).padStart(2, '0')}} nap, ` +
-          `${{String(hours).padStart(2, '0')}} óra, ` +
-          `${{String(minutes).padStart(2, '0')}} perc, ` +
-          `${{String(seconds).padStart(2, '0')}} másodperc`;
-      }}
-
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-    </script>
-  </body>
-</html>
-""", height=400)
-
-# 🌍 API-kulcs és város ID
+# 🌍 Időjárás – lekérés
 API_KEY = "7f6722e92808e9cb374d127f5d154122"
-CITY_ID = "3128760"  # Barcelona
-
-# 🌤️ Lekérdezés összeállítása
+CITY_ID = "3128760"
 URL = f"https://api.openweathermap.org/data/2.5/weather?id={CITY_ID}&appid={API_KEY}&units=metric&lang=hu"
 
-# 🌦️ Adatok lekérése és megjelenítése (keretben)
 try:
     response = requests.get(URL)
     data = response.json()
@@ -144,28 +114,16 @@ try:
         feels_like = data["main"]["feels_like"]
         humidity = data["main"]["humidity"]
 
-        # 🔲 Időjárás megjelenítése dizájnos keretben
-        st.markdown("""
-            <div style='
-                background-color: rgba(0, 0, 0, 0.6);
-                padding: 2rem;
-                border-radius: 1rem;
-                color: white;
-                text-align: center;
-                max-width: 500px;
-                margin: 2rem auto;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-                backdrop-filter: blur(4px);
-            '>
-                <h2 style='margin-bottom: 1rem;'>🌤️ Aktuális időjárás Barcelonában</h2>
+        st.markdown(f"""
+        <div class="glass-box">
+            <h2>🌤️ Aktuális időjárás Barcelonában</h2>
+            <img src="http://openweathermap.org/img/wn/{icon}@2x.png" width="80">
+            <p><strong>Állapot:</strong> {weather}</p>
+            <p><strong>Hőmérséklet:</strong> {temp}°C (érzetre: {feels_like}°C)</p>
+            <p><strong>Páratartalom:</strong> {humidity}%</p>
+        </div>
         """, unsafe_allow_html=True)
 
-        st.image(f"http://openweathermap.org/img/wn/{icon}@2x.png", width=80)
-        st.markdown(f"**Állapot:** {weather}", unsafe_allow_html=True)
-        st.markdown(f"**Hőmérséklet:** {temp}°C _(érzetre: {feels_like}°C)_", unsafe_allow_html=True)
-        st.markdown(f"**Páratartalom:** {humidity}%", unsafe_allow_html=True)
-
-        st.markdown("</div>", unsafe_allow_html=True)
     else:
         st.warning("Nem sikerült lekérdezni az időjárást.")
 except Exception as e:
