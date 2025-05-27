@@ -4,13 +4,10 @@ import streamlit.components.v1 as components
 import requests
 import random
 
-# 🎯 Cél dátum
 target_date = datetime(2025, 6, 19, 0, 0, 0)
 
-# 📄 Oldal beállítás
 st.set_page_config(page_title="Barcelonai utazás", layout="centered")
 
-# 🎨 Háttér + középre igazított cím stílus
 st.markdown("""
     <style>
     [data-testid="stAppViewContainer"] {
@@ -20,7 +17,6 @@ st.markdown("""
         background-repeat: no-repeat;
         background-attachment: fixed;
     }
-
     .custom-title {
         text-align: center;
         font-size: 3.2rem;
@@ -34,10 +30,8 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 🏷️ Cím
 st.markdown("<h1 class='custom-title'>Barcelonai utazás</h1>", unsafe_allow_html=True)
 
-# ⏳ JS-alapú visszaszámláló
 components.html(f"""
 <!DOCTYPE html>
 <html>
@@ -49,7 +43,6 @@ components.html(f"""
         padding: 0;
         background: transparent;
       }}
-
       .counter-container {{
         display: flex;
         justify-content: center;
@@ -57,7 +50,6 @@ components.html(f"""
         padding: 0;
         margin-bottom: 0;
       }}
-
       .counter-box {{
         background-color: rgba(0, 0, 0, 0.6);
         border-radius: 1rem;
@@ -71,7 +63,6 @@ components.html(f"""
         width: 100%;
         max-width: 600px;
       }}
-
       .counter-title {{
         font-size: 1.6rem;
         margin-bottom: 1rem;
@@ -79,7 +70,6 @@ components.html(f"""
         text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
         font-weight: 600;
       }}
-
       #countdown {{
         font-size: 2rem;
         font-weight: bold;
@@ -94,32 +84,26 @@ components.html(f"""
         <div id="countdown">Számolás...</div>
       </div>
     </div>
-
     <script>
       const target = new Date("{target_date.strftime('%Y-%m-%dT%H:%M:%S')}");
       const countdown = document.getElementById("countdown");
-
       function updateCountdown() {{
         const now = new Date();
         const diff = target - now;
-
         if (diff <= 0) {{
           countdown.innerHTML = "🎉 Ma van az utazás napja vagy már elmúlt!";
           return;
         }}
-
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
         const minutes = Math.floor((diff / (1000 * 60)) % 60);
         const seconds = Math.floor((diff / 1000) % 60);
-
         countdown.innerHTML =
           `${{String(days).padStart(2, '0')}} nap, ` +
           `${{String(hours).padStart(2, '0')}} óra, ` +
           `${{String(minutes).padStart(2, '0')}} perc, ` +
           `${{String(seconds).padStart(2, '0')}} másodperc`;
       }}
-
       updateCountdown();
       setInterval(updateCountdown, 1000);
     </script>
@@ -127,26 +111,23 @@ components.html(f"""
 </html>
 """, height=400)
 
-# ⬇️ Eltünteti a felesleges tér a visszaszámláló után
-st.markdown("<div style='margin-top: -1.5rem'></div>", unsafe_allow_html=True)
+# 💡 Negatív margó az időjárásdoboz előtt → eltünteti a felesleges helyet
+st.markdown("<div style='margin-top: -2.2rem;'></div>", unsafe_allow_html=True)
 
-# 🌍 Időjárás API
+# 🔽 IDŐJÁRÁS
 API_KEY = "7f6722e92808e9cb374d127f5d154122"
 CITY_ID = "3128760"
 URL = f"https://api.openweathermap.org/data/2.5/weather?id={CITY_ID}&appid={API_KEY}&units=metric&lang=hu"
 
-# 🌦️ Időjárás megjelenítése
 try:
     response = requests.get(URL)
     data = response.json()
-
     if data.get("cod") == 200:
         weather = data["weather"][0]["description"].capitalize()
         icon = data["weather"][0]["icon"]
         temp = data["main"]["temp"]
         feels_like = data["main"]["feels_like"]
         humidity = data["main"]["humidity"]
-
         st.markdown(f"""
             <div style='
                 background-color: rgba(0, 0, 0, 0.6);
@@ -155,7 +136,7 @@ try:
                 color: white;
                 text-align: center;
                 max-width: 600px;
-                margin: 0rem auto;
+                margin: 0 auto;
                 box-shadow: 0 4px 20px rgba(0,0,0,0.5);
                 backdrop-filter: blur(4px);
                 font-family: "Segoe UI", sans-serif;
@@ -167,13 +148,12 @@ try:
                 <p><strong>Páratartalom:</strong> {humidity}%</p>
             </div>
         """, unsafe_allow_html=True)
-
     else:
         st.warning("Nem sikerült lekérdezni az időjárást.")
 except Exception as e:
     st.error(f"Hiba történt az időjárás lekérésekor: {e}")
 
-# 💬 Barcelonai idézet doboz
+# 🔽 IDÉZET
 barcelona_facts = [
     "„Barcelona több, mint város – ez egy életérzés.”",
     "A Sagrada Família templomot 1882-ben kezdték építeni – még mindig épül!",
@@ -186,9 +166,7 @@ barcelona_facts = [
     "„A tenger és a hegy között születtem – így lettem Barcelonai.” – ismeretlen",
     "Barcelonában található Európa legöregebb fedett piacainak egyike: La Boqueria."
 ]
-
 random_fact = random.choice(barcelona_facts)
-
 st.markdown(f"""
     <div style='
         background-color: rgba(0, 0, 0, 0.65);
