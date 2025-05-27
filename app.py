@@ -191,7 +191,7 @@ random_fact = random.choice(barcelona_facts)
 # 💬 Megjelenítés stílusosan
 st.markdown(f"""
     <div style='
-        background-color: rgba(255, 255, 255, 0.15);
+        background-color: rgba(0, 0, 0, 0.5);
         padding: 1.5rem;
         border-radius: 1rem;
         color: white;
