@@ -152,7 +152,7 @@ try:
                 color: white;
                 text-align: center;
                 max-width: 600px;
-                margin: 0.8rem auto;
+                margin: 0.1rem auto;
                 box-shadow: 0 4px 20px rgba(0,0,0,0.5);
                 backdrop-filter: blur(4px);
                 font-family: "Segoe UI", sans-serif;
