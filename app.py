@@ -1,6 +1,7 @@
 import streamlit as st
 from datetime import datetime
 import streamlit.components.v1 as components
+import requests
 
 # 🎯 Cél dátum
 target_date = datetime(2025, 6, 19, 0, 0, 0)
@@ -35,7 +36,7 @@ st.markdown("""
 # 🏷️ Középre helyezett cím
 st.markdown("<h1 class='custom-title'>Barcelonai utazás</h1>", unsafe_allow_html=True)
 
-# ⏳ JS-alapú visszaszámláló (mobilbarát felirat + rugalmas méretezés)
+# ⏳ JS-alapú visszaszámláló
 components.html(f"""
 <!DOCTYPE html>
 <html>
@@ -123,7 +124,6 @@ components.html(f"""
   </body>
 </html>
 """, height=400)
-import requests
 
 # 🌍 API-kulcs és város ID
 API_KEY = "7f6722e92808e9cb374d127f5d154122"
@@ -132,7 +132,7 @@ CITY_ID = "3128760"  # Barcelona
 # 🌤️ Lekérdezés összeállítása
 URL = f"https://api.openweathermap.org/data/2.5/weather?id={CITY_ID}&appid={API_KEY}&units=metric&lang=hu"
 
-# 🌦️ Adatok lekérése és megjelenítése
+# 🌦️ Adatok lekérése és megjelenítése (keretben)
 try:
     response = requests.get(URL)
     data = response.json()
@@ -144,14 +144,29 @@ try:
         feels_like = data["main"]["feels_like"]
         humidity = data["main"]["humidity"]
 
-        st.markdown("---")
-        st.markdown("## 🌤️ Aktuális időjárás Barcelonában")
+        # 🔲 Időjárás megjelenítése dizájnos keretben
+        st.markdown("""
+            <div style='
+                background-color: rgba(0, 0, 0, 0.6);
+                padding: 2rem;
+                border-radius: 1rem;
+                color: white;
+                text-align: center;
+                max-width: 500px;
+                margin: 2rem auto;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+                backdrop-filter: blur(4px);
+            '>
+                <h2 style='margin-bottom: 1rem;'>🌤️ Aktuális időjárás Barcelonában</h2>
+        """, unsafe_allow_html=True)
+
         st.image(f"http://openweathermap.org/img/wn/{icon}@2x.png", width=80)
-        st.markdown(f"**Állapot:** {weather}")
-        st.markdown(f"**Hőmérséklet:** {temp}°C _(érzetre: {feels_like}°C)_")
-        st.markdown(f"**Páratartalom:** {humidity}%")
+        st.markdown(f"**Állapot:** {weather}", unsafe_allow_html=True)
+        st.markdown(f"**Hőmérséklet:** {temp}°C _(érzetre: {feels_like}°C)_", unsafe_allow_html=True)
+        st.markdown(f"**Páratartalom:** {humidity}%", unsafe_allow_html=True)
+
+        st.markdown("</div>", unsafe_allow_html=True)
     else:
         st.warning("Nem sikerült lekérdezni az időjárást.")
 except Exception as e:
     st.error(f"Hiba történt az időjárás lekérésekor: {e}")
-
