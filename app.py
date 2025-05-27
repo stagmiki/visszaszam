@@ -172,6 +172,14 @@ barcelona_facts = [
     "A madár nem repül olyan gyorsan, mint a repülő!",
     "Jobb Barcelonában lenni, mint dolgozni!",
     "Megyek Lidlbe, kell valami otthonra?",
+    "Szép a szemed!",
+    "Fehéret vagy vöröset?",
+    "És, Ti hogy vagytok?",
+    "Lafalafalafalalafalafalafalafa!",
+    "Andi szeretlek és jól főzől!",
+    "Jó.",
+    "Andi a leggyönyörűbb nő és Miki a legsármosabb férfi!",
+    "Azt hiszem, akkor lesz egy hegycsúcson igazán szêp a kilátás, hogyha gyalog megyünk oda fel, megizzadunk, verejtékezünk és elfáradunk."
 ]
 random_fact = random.choice(barcelona_facts)
 st.markdown(f"""
