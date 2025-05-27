@@ -144,6 +144,8 @@ try:
         feels_like = data["main"]["feels_like"]
         humidity = data["main"]["humidity"]
 
+        st.markdown("<div style='margin-top: -1.5rem'></div>", unsafe_allow_html=True)
+
         st.markdown(f"""
             <div style='
                 background-color: rgba(0, 0, 0, 0.6);
