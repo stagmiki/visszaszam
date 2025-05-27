@@ -144,12 +144,29 @@ try:
         feels_like = data["main"]["feels_like"]
         humidity = data["main"]["humidity"]
 
-        st.markdown("---")
-        st.markdown("## 🌤️ Aktuális időjárás Barcelonában")
+        st.markdown("""
+            <div style='
+                background-color: rgba(0, 0, 0, 0.6);
+                padding: 2rem;
+                border-radius: 1rem;
+                color: white;
+                text-align: center;
+                max-width: 500px;
+                margin: 2rem auto;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+                backdrop-filter: blur(4px);
+                font-family: "Segoe UI", sans-serif;
+            '>
+                <h2 style='margin-bottom: 1rem;'>🌤️ Aktuális időjárás Barcelonában</h2>
+        """, unsafe_allow_html=True)
+
         st.image(f"http://openweathermap.org/img/wn/{icon}@2x.png", width=80)
-        st.markdown(f"**Állapot:** {weather}")
-        st.markdown(f"**Hőmérséklet:** {temp}°C _(érzetre: {feels_like}°C)_")
-        st.markdown(f"**Páratartalom:** {humidity}%")
+        st.markdown(f"<p><strong>Állapot:</strong> {weather}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p><strong>Hőmérséklet:</strong> {temp}°C (érzetre: {feels_like}°C)</p>", unsafe_allow_html=True)
+        st.markdown(f"<p><strong>Páratartalom:</strong> {humidity}%</p>", unsafe_allow_html=True)
+
+        st.markdown("</div>", unsafe_allow_html=True)
+
     else:
         st.warning("Nem sikerült lekérdezni az időjárást.")
 except Exception as e:
