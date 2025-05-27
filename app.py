@@ -144,7 +144,7 @@ try:
         feels_like = data["main"]["feels_like"]
         humidity = data["main"]["humidity"]
 
-        st.markdown("""
+        st.markdown(f"""
             <div style='
                 background-color: rgba(0, 0, 0, 0.6);
                 padding: 2rem;
@@ -158,14 +158,12 @@ try:
                 font-family: "Segoe UI", sans-serif;
             '>
                 <h2 style='margin-bottom: 1rem;'>🌤️ Aktuális időjárás Barcelonában</h2>
+                <img src="http://openweathermap.org/img/wn/{icon}@2x.png" width="80">
+                <p><strong>Állapot:</strong> {weather}</p>
+                <p><strong>Hőmérséklet:</strong> {temp}°C (érzetre: {feels_like}°C)</p>
+                <p><strong>Páratartalom:</strong> {humidity}%</p>
+            </div>
         """, unsafe_allow_html=True)
-
-        st.image(f"http://openweathermap.org/img/wn/{icon}@2x.png", width=80)
-        st.markdown(f"<p><strong>Állapot:</strong> {weather}</p>", unsafe_allow_html=True)
-        st.markdown(f"<p><strong>Hőmérséklet:</strong> {temp}°C (érzetre: {feels_like}°C)</p>", unsafe_allow_html=True)
-        st.markdown(f"<p><strong>Páratartalom:</strong> {humidity}%</p>", unsafe_allow_html=True)
-
-        st.markdown("</div>", unsafe_allow_html=True)
 
     else:
         st.warning("Nem sikerült lekérdezni az időjárást.")
