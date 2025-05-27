@@ -164,7 +164,14 @@ barcelona_facts = [
     "Barcelona lakói hivatalosan katalánnak vallják magukat – nem spanyolnak!",
     "A Rambla nem egy utca, hanem öt egybefolyó utca.",
     "„A tenger és a hegy között születtem – így lettem Barcelonai.” – ismeretlen",
-    "Barcelonában található Európa legöregebb fedett piacainak egyike: La Boqueria."
+    "Barcelonában található Európa legöregebb fedett piacainak egyike: La Boqueria.",
+    "Andi és Miki, Barcelona csak Titeket vár!",
+    "Fontosabb az utitárs, mint az utazás!",
+    "Miki szépen énekel!",
+    "Minden jó, ha Miki is ott van és énekel!",
+    "A madár nem repül olyan gyorsan, mint a repülő!",
+    "Jobb Barcelonában lenni, mint dolgozni!",
+    "Megyek Lidlbe, kell valami otthonra?",
 ]
 random_fact = random.choice(barcelona_facts)
 st.markdown(f"""
