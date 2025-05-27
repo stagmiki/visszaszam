@@ -127,6 +127,9 @@ components.html(f"""
 </html>
 """, height=400)
 
+# ⬇️ Eltünteti a felesleges tér a visszaszámláló után
+st.markdown("<div style='margin-top: -1.5rem'></div>", unsafe_allow_html=True)
+
 # 🌍 Időjárás API
 API_KEY = "7f6722e92808e9cb374d127f5d154122"
 CITY_ID = "3128760"
@@ -143,7 +146,7 @@ try:
         temp = data["main"]["temp"]
         feels_like = data["main"]["feels_like"]
         humidity = data["main"]["humidity"]
-        st.markdown("<div style='margin-top: -10rem'></div>", unsafe_allow_html=True)
+
         st.markdown(f"""
             <div style='
                 background-color: rgba(0, 0, 0, 0.6);
@@ -170,7 +173,7 @@ try:
 except Exception as e:
     st.error(f"Hiba történt az időjárás lekérésekor: {e}")
 
-# 💬 Barcelonai idézet doboz – sötétebben, kisebb margóval
+# 💬 Barcelonai idézet doboz
 barcelona_facts = [
     "„Barcelona több, mint város – ez egy életérzés.”",
     "A Sagrada Família templomot 1882-ben kezdték építeni – még mindig épül!",
