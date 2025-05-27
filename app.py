@@ -160,7 +160,7 @@ try:
                 <h2 style='margin-bottom: 1rem;'>🌤️ Aktuális időjárás Barcelonában</h2>
                 <img src="http://openweathermap.org/img/wn/{icon}@2x.png" width="80">
                 <p><strong>Állapot:</strong> {weather}</p>
-                <p><strong>Hőmérséklet:</strong> {temp}°C (érzetre: {feels_like}°C)</p>
+                <p><strong>Hőmérséklet:</strong> {temp}°C <br>(hőérzet: {feels_like}°C)</br></p>
                 <p><strong>Páratartalom:</strong> {humidity}%</p>
             </div>
         """, unsafe_allow_html=True)
