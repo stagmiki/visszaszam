@@ -22,9 +22,9 @@ st.markdown("""
     .custom-title {
         text-align: center;
         font-size: 3.5rem;
-        margin-top: 25vh;
+        margin-top: 25dvh;
         margin-bottom: 2rem;
-        color: white;
+        color: white !important;
         text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
         font-weight: bold;
         font-family: 'Segoe UI', sans-serif;
