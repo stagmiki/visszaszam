@@ -49,17 +49,19 @@ components.html(f"""
         padding: 0;
         background: transparent;
       }}
+
       .counter-container {{
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 1.2rem 1rem 0 1rem;
+        padding: 0;
         margin-bottom: 1.2rem;
       }}
+
       .counter-box {{
         background-color: rgba(0, 0, 0, 0.6);
         border-radius: 1rem;
-        padding: 2rem 1.5rem;
+        padding: 1.5rem 1rem;
         font-size: 1.6rem;
         color: white;
         text-align: center;
@@ -69,6 +71,7 @@ components.html(f"""
         width: 100%;
         max-width: 600px;
       }}
+
       .counter-title {{
         font-size: 1.6rem;
         margin-bottom: 1rem;
@@ -76,6 +79,7 @@ components.html(f"""
         text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
         font-weight: 600;
       }}
+
       #countdown {{
         font-size: 2rem;
         font-weight: bold;
