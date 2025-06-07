@@ -180,7 +180,8 @@ barcelona_facts = [
     "Jó.",
     "Andi a leggyönyörűbb nő és Miki a legsármosabb férfi!",
     "Azt hiszem, akkor lesz egy hegycsúcson igazán szêp a kilátás, hogyha gyalog megyünk oda fel, megizzadunk, verejtékezünk és elfáradunk.",
-    "30/30-as szabály: 30 perc munka, majd 30 év Barcelona!"
+    "30/30-as szabály: 30 perc munka, majd 30 év Barcelona!",
+    "Vár egy új élmény!"
     ]
 random_fact = random.choice(barcelona_facts)
 st.markdown(f"""
